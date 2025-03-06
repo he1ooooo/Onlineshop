@@ -25,7 +25,9 @@
     "nextjs-toast-notify": "^1.35.0",
     "radix": "^0.0.0",
     "radix-ui": "^1.1.3",
+    "react": "^19.0.0",
     "react-day-picker": "^9.5.1",
+    "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "react-resizable-panels": "^2.1.7",
     "react-router-dom": "^7.2.0",
@@ -51,8 +53,6 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
     "postcss": "^8",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5",
     "vite": "^6.1.1"
