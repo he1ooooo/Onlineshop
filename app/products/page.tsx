@@ -1,65 +1,3 @@
-// 'use client';
-
-// import Link from 'next/link';
-// import { Button } from '@/app/components/ui/button';
-// import { useQuery } from '@tanstack/react-query';
-// import { Product } from '@/shared/schema';
-// import { Card, CardContent } from '@/app/components/ui/card';
-// import { Skeleton } from '@/app/components/ui/skeleton';
-
-// export default function Home() {
-//   const { data: products, isLoading } = useQuery<Product[]>({
-//     queryKey: ['products'], // Use a simple key
-//     queryFn: async () => {
-//       const response = await fetch('https://kqqkcergzwlfbfmyrijr.supabase.co/rest/v1/products', {
-//         headers: {
-//           'apikey' : `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxcWtjZXJnendsZmJmbXlyaWpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk1MzQ3MzYsImV4cCI6MjA1NTExMDczNn0.4yEJaQJlmA5mNfuId6jVRjlCI8bhyrdTJLo4vd0Fpfo`,
-//           'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxcWtjZXJnendsZmJmbXlyaWpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk1MzQ3MzYsImV4cCI6MjA1NTExMDczNn0.4yEJaQJlmA5mNfuId6jVRjlCI8bhyrdTJLo4vd0Fpfo`, // Include your access token if needed
-//           'Content-Type': 'application/json',
-//         },
-//       });
-//       if (!response.ok) {
-//         throw new Error('Network response was not ok');
-//       }
-//       return response.json();
-//     },
-//   });
-
-//   return (
-//     <div className="max-w-7xl mx-auto px-4 text-center space-y-12 py-12">
-//       <h1 className="text-4xl font-bold">Welcome to Our Shop</h1>
-//       <p className="text-lg text-gray-600">Discover our latest products and amazing deals.</p>
-//       <Link href="/products">
-//         <Button className="bg-primary text-white hover:bg-primary/90 text-lg px-6 py-3">
-//           Browse Products
-//         </Button>
-//       </Link>
-      
-//       <h2 className="text-3xl font-bold mt-12">Featured Products</h2>
-//       {isLoading ? (
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//           {Array.from({ length: 3 }).map((_, i) => (
-//             <Skeleton key={i} className="h-[300px] w-full" />
-//           ))}
-//         </div>
-//       ) : (
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//           {products?.slice(0, 3).map((product) => (
-//             <Link key={product.id} href={`/product/${product.id}`}>
-//               <Card className="cursor-pointer hover:shadow-lg transition border border-primary/20">
-//                 <img src={product.image_url} alt={product.name} className="w-full h-[200px] object-cover" />
-//                 <CardContent className="p-4">
-//                   <h3 className="text-xl font-bold">{product.name}</h3>
-//                   <p className="text-lg font-semibold text-gray-800">{product.price.toLocaleString()}₮</p>
-//                 </CardContent>
-//               </Card>
-//             </Link>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
 'use client';
 import { useQuery } from "@tanstack/react-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -72,8 +10,8 @@ import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/app/lib/cart-store";
 import { useToast } from "@/app/hooks/use-toast";
 import Link from 'next/link'
-import ToastComponent , { showToast } from "@/app/components/toast";
-import { Toaster } from "@/app/components/ui/toaster";
+import ToastComponent , { showToast } from "../components/toast";
+import { Toaster } from "../components/ui/toaster";
 export default function Products() {
   const { data: products, isLoading } = useQuery<Product[]>({
     queryKey: ['products'], // Use a simple key

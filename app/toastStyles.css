@@ -1,0 +1,38 @@
+/* toastStyles.css */
+.Toastify__toast {
+  font-family: 'Arial, sans-serif';
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  background-color: black; /* Black background */
+  color: white; /* White text */
+}
+
+.Toastify__toast--success {
+  background-color: black; /* Keep black for success */
+  color: white; /* Keep white text */
+}
+
+.Toastify__toast--error {
+  background-color: black; /* Keep black for error */
+  color: white; /* Keep white text */
+}
+
+.Toastify__toast--info {
+  background-color: black; /* Keep black for info */
+  color: white; /* Keep white text */
+}
+
+.Toastify__toast--warning {
+  background-color: black; /* Keep black for warning */
+  color: white; /* Keep white text */
+}
+
+.Toastify__toast .Toastify__toast-body {
+  display: flex;
+  align-items: center;
+}
+
+.Toastify__toast-icon {
+  margin-right: 8px;
+  color: white; /* White icon color for better visibility */
+}
