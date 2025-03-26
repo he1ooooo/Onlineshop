@@ -2,7 +2,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "@/shared/schema";
 import { CartItem } from "@/app/components/cart-item";
-import { Button } from "@/app/components/ui/button";
 import { useCartStore } from "@/app/lib/cart-store";
 import { Card } from "@/app/components/ui/card";
 import Link from 'next/link'

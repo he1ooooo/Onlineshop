@@ -11,7 +11,6 @@ import {
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { useAuthStore } from "@/app/lib/auth-store";
-import { useToast } from "@/app/hooks/use-toast";
 import { Lock } from "lucide-react";
 import Link from "next/link";
 import ToastComponent, { showToast } from "@/app/components/toast";
@@ -35,7 +34,7 @@ export default function AdminLogin() {
         showToast("Acces Denied", "Invalid admin password");
         console.log(password)
       }
-    } catch (error) {
+    } catch {
       showToast("Error", "An error occurred during login");
     } finally {
       setIsLoading(false);

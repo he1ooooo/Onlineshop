@@ -25,10 +25,7 @@ export function CartItem({ product, quantity }: CartItemProps) {
       />
       <div className="flex-1">
         <h3 className="font-semibold">{product.name}</h3>
-        <p className="text-muted-foreground">
-          {product.price.toLocaleString()} * {quantity.toLocaleString()} ={" "}
-          {num.toLocaleString()}₮
-        </p>
+        <p className="text-muted-foreground">{product.price.toLocaleString()} * {quantity.toLocaleString()} = {num.toLocaleString()}₮</p>
       </div>
       <div className="flex items-center gap-2">
         <Input
