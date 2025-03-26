@@ -7,7 +7,6 @@ import { Card, CardContent } from "@/app/components/ui/card";
 import { Button } from "@/app/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/app/lib/cart-store";
-import { useToast } from "@/app/hooks/use-toast";
 import Link from 'next/link'
 import ToastComponent , { showToast } from "../components/toast";
 import { Toaster } from "../components/ui/toaster";
@@ -31,8 +30,6 @@ export default function Products() {
   
   const addItem = useCartStore((state) => state.addItem);
 
-  const { toast } = useToast();
-
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -51,21 +48,8 @@ export default function Products() {
 
   const featuredProduct  = products[0];
   const otherProducts = products.slice(1);
-
-  // const handleAddToCart = (product: Product) => {s
-  //   addItem(product, 1);
-  //   toast({
-  //     title: "Added to cart",
-  //     description: `${product.name} has been added to your cart.`,
-  //   });
-  // };
   const handleAddToCart = (product: Product) => {
- 
     addItem(product, 1);
-    // toast({
-    //   title: "Added to cart",
-    //   description: `${product.name} has been added to your cart.`,
-    // });
     showToast("Added to Cart", `${product.name} has been added.`);
   };
   return (

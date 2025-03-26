@@ -1,68 +1,5 @@
-// 'use client';
-
-// import Link from 'next/link';
-// import { Button } from '@/app/components/ui/button';
-// import { useQuery } from '@tanstack/react-query';
-// import { Product } from '@/shared/schema';
-// import { Card, CardContent } from '@/app/components/ui/card';
-// import { Skeleton } from '@/app/components/ui/skeleton';
-
-// export default function Home() {
-//   const { data: products, isLoading } = useQuery<Product[]>({
-//     queryKey: ['products'], // Use a simple key
-//     queryFn: async () => {
-//       const response = await fetch('https://kqqkcergzwlfbfmyrijr.supabase.co/rest/v1/products', {
-//         headers: {
-//           'apikey' : `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxcWtjZXJnendsZmJmbXlyaWpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk1MzQ3MzYsImV4cCI6MjA1NTExMDczNn0.4yEJaQJlmA5mNfuId6jVRjlCI8bhyrdTJLo4vd0Fpfo`,
-//           'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxcWtjZXJnendsZmJmbXlyaWpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk1MzQ3MzYsImV4cCI6MjA1NTExMDczNn0.4yEJaQJlmA5mNfuId6jVRjlCI8bhyrdTJLo4vd0Fpfo`, // Include your access token if needed
-//           'Content-Type': 'application/json',
-//         },
-//       });
-//       if (!response.ok) {
-//         throw new Error('Network response was not ok');
-//       }
-//       return response.json();
-//     },
-//   });
-
-//   return (
-//     <div className="max-w-7xl mx-auto px-4 text-center space-y-12 py-12">
-//       <h1 className="text-4xl font-bold">Welcome to Our Shop</h1>
-//       <p className="text-lg text-gray-600">Discover our latest products and amazing deals.</p>
-//       <Link href="/products">
-//         <Button className="bg-primary text-white hover:bg-primary/90 text-lg px-6 py-3">
-//           Browse Products
-//         </Button>
-//       </Link>
-      
-//       <h2 className="text-3xl font-bold mt-12">Featured Products</h2>
-//       {isLoading ? (
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//           {Array.from({ length: 3 }).map((_, i) => (
-//             <Skeleton key={i} className="h-[300px] w-full" />
-//           ))}
-//         </div>
-//       ) : (
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//           {products?.slice(0, 3).map((product) => (
-//             <Link key={product.id} href={`/product/${product.id}`}>
-//               <Card className="cursor-pointer hover:shadow-lg transition border border-primary/20">
-//                 <img src={product.image_url} alt={product.name} className="w-full h-[200px] object-cover" />
-//                 <CardContent className="p-4">
-//                   <h3 className="text-xl font-bold">{product.name}</h3>
-//                   <p className="text-lg font-semibold text-gray-800">{product.price.toLocaleString()}₮</p>
-//                 </CardContent>
-//               </Card>
-//             </Link>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-'use client';
+"use client";
 import { useQuery } from "@tanstack/react-query";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Product } from "@/shared/schema";
 import { ProductCard } from "@/app/components/product-card";
 import { Skeleton } from "@/app/components/ui/skeleton";
@@ -70,31 +7,32 @@ import { Card, CardContent } from "@/app/components/ui/card";
 import { Button } from "@/app/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/app/lib/cart-store";
-import { useToast } from "@/app/hooks/use-toast";
-import Link from 'next/link'
-import ToastComponent , { showToast } from "@/app/components/toast";
+import Link from "next/link";
+import Image from "next/image";
+import ToastComponent, { showToast } from "@/app/components/toast";
 import { Toaster } from "@/app/components/ui/toaster";
 export default function Products() {
   const { data: products, isLoading } = useQuery<Product[]>({
-    queryKey: ['products'], // Use a simple key
+    queryKey: ["products"], // Use a simple key
     queryFn: async () => {
-      const response = await fetch('https://kqqkcergzwlfbfmyrijr.supabase.co/rest/v1/products', {
-        headers: {
-          'apikey' : `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxcWtjZXJnendsZmJmbXlyaWpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk1MzQ3MzYsImV4cCI6MjA1NTExMDczNn0.4yEJaQJlmA5mNfuId6jVRjlCI8bhyrdTJLo4vd0Fpfo`,
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxcWtjZXJnendsZmJmbXlyaWpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk1MzQ3MzYsImV4cCI6MjA1NTExMDczNn0.4yEJaQJlmA5mNfuId6jVRjlCI8bhyrdTJLo4vd0Fpfo`, // Include your access token if needed
-          'Content-Type': 'application/json',
-        },
-      });
+      const response = await fetch(
+        "https://kqqkcergzwlfbfmyrijr.supabase.co/rest/v1/products",
+        {
+          headers: {
+            apikey: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxcWtjZXJnendsZmJmbXlyaWpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk1MzQ3MzYsImV4cCI6MjA1NTExMDczNn0.4yEJaQJlmA5mNfuId6jVRjlCI8bhyrdTJLo4vd0Fpfo`,
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtxcWtjZXJnendsZmJmbXlyaWpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzk1MzQ3MzYsImV4cCI6MjA1NTExMDczNn0.4yEJaQJlmA5mNfuId6jVRjlCI8bhyrdTJLo4vd0Fpfo`, // Include your access token if needed
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       return response.json();
     },
   });
-  
-  const addItem = useCartStore((state) => state.addItem);
 
-  const { toast } = useToast();
+  const addItem = useCartStore((state) => state.addItem);
 
   if (isLoading) {
     return (
@@ -112,76 +50,66 @@ export default function Products() {
 
   if (!products?.length) return null;
 
-  const featuredProduct  = products[0];
+  const featuredProduct = products[0];
   const otherProducts = products.slice(1);
-
-  // const handleAddToCart = (product: Product) => {s
-  //   addItem(product, 1);
-  //   toast({
-  //     title: "Added to cart",
-  //     description: `${product.name} has been added to your cart.`,
-  //   });
-  // };
   const handleAddToCart = (product: Product) => {
- 
     addItem(product, 1);
-    // toast({
-    //   title: "Added to cart",
-    //   description: `${product.name} has been added to your cart.`,
-    // });
     showToast("Added to Cart", `${product.name} has been added.`);
   };
   return (
     <>
-    <Toaster/>
-    <ToastComponent />
-    <div className="max-w-7xl mx-auto px-4 space-y-12">
-      <h1 className="text-3xl font-bold text-center">Our Products</h1>
-      <Link href={`/product/${featuredProduct.id}`}>
-        <Card className="max-w-[800px] mx-auto overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 border border-primary/20 bg-gradient-to-br from-white to-primary/5">
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="h-[250px] relative group">
-              <div className="absolute inset-0 bg-primary/10 group-hover:opacity-0 transition-opacity duration-300"></div>
-              <img
-                src={featuredProduct.image_url || ""}
-                alt={featuredProduct.name}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute top-3 left-3 bg-primary text-white px-2 py-0.5 rounded-full text-xs font-medium">
-                Featured
+      <Toaster />
+      <ToastComponent />
+      <div className="max-w-7xl mx-auto px-4 space-y-12">
+        <h1 className="text-3xl font-bold text-center">Our Products</h1>
+        <Link href={`/product/${featuredProduct.id}`}>
+          <Card className="max-w-[800px] mx-auto overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 border border-primary/20 bg-gradient-to-br from-white to-primary/5">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="h-[250px] relative group">
+                <div className="absolute inset-0 bg-primary/10 group-hover:opacity-0 transition-opacity duration-300"></div>
+                <Image
+                  src={featuredProduct.image_url || ""}
+                  alt={featuredProduct.name}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  width={500} // Set a width (in px) or use the correct width
+                  height={500} // Set a height (in px) or use the correct height
+                />
+                <div className="absolute top-3 left-3 bg-primary text-white px-2 py-0.5 rounded-full text-xs font-medium">
+                  Featured
+                </div>
               </div>
+              <CardContent className="p-4 flex flex-col justify-center">
+                <h2 className="text-xl font-bold mb-2 text-primary">
+                  {featuredProduct.name}
+                </h2>
+                <p className="text-lg font-bold text-gray-900 mb-2">
+                  {featuredProduct.price.toLocaleString()}₮
+                </p>
+                <p className="text-gray-600 mb-4 text-sm">
+                  {featuredProduct.description}
+                </p>
+                <Button
+                  size="lg"
+                  className="bg-primary hover:bg-primary/90 text-white"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleAddToCart(featuredProduct);
+                  }}
+                >
+                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  Add to Cart
+                </Button>
+              </CardContent>
             </div>
-            <CardContent className="p-4 flex flex-col justify-center">
-              <h2 className="text-xl font-bold mb-2 text-primary">{featuredProduct.name}</h2>
-              <p className="text-lg font-bold text-gray-900 mb-2">
-                {featuredProduct.price.toLocaleString()}₮
-              </p>
-              <p className="text-gray-600 mb-4 text-sm">
-                {featuredProduct.description}
-              </p>
-              <Button 
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-white"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleAddToCart(featuredProduct);
-                }}
-              >
-                <ShoppingCart className="mr-2 h-5 w-5" />
-                Add to Cart
-              </Button>
-            </CardContent>
-          </div>
-        </Card>
-      </Link>
+          </Card>
+        </Link>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
-        {otherProducts.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+          {otherProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </div>
-    </div>
     </>
   );
 }
-    

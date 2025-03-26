@@ -2,10 +2,10 @@ import { Product } from "@/shared/schema";
 import { Card, CardContent, CardFooter } from "./ui/card";
 import { Button } from "./ui/button";
 import { useCartStore } from "@/app/lib/cart-store";
-import { useToast } from "@/app/hooks/use-toast";
-import { Link, useLocation } from "wouter";
+import Link from "next/link";
+import Image from "next/image";
 import { ShoppingCart, Edit, Trash2 } from "lucide-react";
-
+import { showToast } from "@/app/components/toast";
 interface ProductCardProps {
   product: Product;
   isAdmin?: boolean;
@@ -13,17 +13,18 @@ interface ProductCardProps {
   onDelete?: (id: number) => void;
 }
 
-export function ProductCard({ product, isAdmin, onEdit, onDelete }: ProductCardProps) {
+export function ProductCard({
+  product,
+  isAdmin,
+  onEdit,
+  onDelete,
+}: ProductCardProps) {
   const addItem = useCartStore((state) => state.addItem);
-  const { toast } = useToast();
 
   const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault(); // Prevent navigation when clicking the add to cart button
+    e.preventDefault();
     addItem(product, 1);
-    toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cartaa.`,
-    });
+    showToast("Added to Cart", `${product.name} has been added.`);
   };
 
   const handleEdit = (e: React.MouseEvent) => {
@@ -41,19 +42,27 @@ export function ProductCard({ product, isAdmin, onEdit, onDelete }: ProductCardP
   };
 
   return (
-    <Link href={`/product/${product.id}`}>
+    <Link href={`/product/${product.id}`} passHref>
       <Card className="max-w-[280px] mx-auto overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer bg-white/50 backdrop-blur-sm">
         <div className="aspect-square overflow-hidden">
-          <img
-            src={product.image_url}
+          <Image
+            src={product.image_url || ""}
             alt={product.name}
-            className="h-full w-full object-cover transition-transform hover:scale-102"
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            width={500} // Set a width (in px) or use the correct width
+            height={500} // Set a height (in px) or use the correct height
           />
         </div>
         <CardContent className="p-3">
-          <h3 className="font-medium text-base text-gray-800">{product.name}</h3>
-          <p className="text-gray-500 text-sm mt-1 line-clamp-2">{product.description}</p>
-          <p className="text-base font-semibold mt-2 text-gray-900">{product.price.toLocaleString()}₮</p>
+          <h3 className="font-medium text-base text-gray-800">
+            {product.name}
+          </h3>
+          <p className="text-gray-500 text-sm mt-1 line-clamp-2">
+            {product.description}
+          </p>
+          <p className="text-base font-semibold mt-2 text-gray-900">
+            {product.price.toLocaleString()}₮
+          </p>
         </CardContent>
         <CardFooter className="p-3 pt-0">
           {isAdmin ? (
@@ -76,7 +85,7 @@ export function ProductCard({ product, isAdmin, onEdit, onDelete }: ProductCardP
               </Button>
             </div>
           ) : (
-            <Button 
+            <Button
               className="w-full bg-gray-900 hover:bg-gray-800 text-sm"
               onClick={handleAddToCart}
             >

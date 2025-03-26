@@ -2,7 +2,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "@/shared/schema";
 import { CartItem } from "@/app/components/cart-item";
-import { Button } from "@/app/components/ui/button";
 import { useCartStore } from "@/app/lib/cart-store";
 import { Card } from "@/app/components/ui/card";
 import Link from 'next/link'
@@ -10,8 +9,8 @@ export default function Cart() {
   
   const cartItems = useCartStore((state) => state.items);
   
-  const { data: products, isLoading } = useQuery<Product[]>({
-    queryKey: ['products'], // Use a simple key
+  const { data: products } = useQuery<Product[]>({
+    queryKey: ['products'],
     queryFn: async () => {
       const response = await fetch('https://kqqkcergzwlfbfmyrijr.supabase.co/rest/v1/products', {
         headers: {
