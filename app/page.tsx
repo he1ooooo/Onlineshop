@@ -10,7 +10,6 @@ import { useCartStore } from "@/app/lib/cart-store";
 import Link from "next/link";
 import Image from "next/image";
 import ToastComponent, { showToast } from "@/app/components/toast";
-import { Toaster } from "@/app/components/ui/toaster";
 export default function Products() {
   const { data: products, isLoading } = useQuery<Product[]>({
     queryKey: ["products"], // Use a simple key
@@ -58,7 +57,6 @@ export default function Products() {
   };
   return (
     <>
-      <Toaster />
       <ToastComponent />
       <div className="max-w-7xl mx-auto px-4 space-y-12">
         <h1 className="text-3xl font-bold text-center">Our Products</h1>

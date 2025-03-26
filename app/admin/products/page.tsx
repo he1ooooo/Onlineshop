@@ -24,9 +24,22 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { insertProductSchema } from "@/shared/schema";
-
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image_url: string;
+}
+interface ProductFormData {
+  id?: number;
+  name: string;
+  description: string;
+  price: number | undefined;
+  image_url: string;
+}
 export default function AdminProducts() {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const fetchProducts = async () => {
@@ -45,7 +58,7 @@ export default function AdminProducts() {
     },
   });
 
-  const saveProduct = async (data: any) => {
+  const saveProduct = async (data: ProductFormData) => {
     const formattedData = { ...data, price: Number(data.price) };
     if (data.id) {
       await supabase.from("products").update(formattedData).eq("id", data.id);
