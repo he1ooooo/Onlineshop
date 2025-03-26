@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "@/shared/schema";
 import { useCartStore } from "@/app/lib/cart-store";
-import { Card, CardContent } from "../../../test-app/app/components/ui/card";
+import { Card, CardContent } from "@/app/components/ui/card"; 
 import { Button } from "@/app/components/ui/button";
 import { useLocation } from "wouter";
 import { CheckCircle2 } from "lucide-react";

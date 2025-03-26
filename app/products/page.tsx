@@ -1,6 +1,5 @@
 'use client';
 import { useQuery } from "@tanstack/react-query";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Product } from "@/shared/schema";
 import { ProductCard } from "@/app/components/product-card";
 import { Skeleton } from "@/app/components/ui/skeleton";
